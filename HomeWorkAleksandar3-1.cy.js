@@ -19,7 +19,8 @@ describe('Returning Values', () => {
         cy.get(".nav-link.btn.btn-primary").click();
         cy.get("button[class='btn btn-success']").click();
         cy.get("#country").type("Macedonia");
-        cy.get("label[for='checkbox2']").click();
+        cy.get('.suggestions > ul > li > a',{timeout:10000}).should('have.text','Macedonia').and('be.visible');
+        cy.get("label[for='checkbox2']").click({force: true});
         cy.get("input[value='Purchase']").click();
         cy.get(".alert.alert-success.alert-dismissible").should("contain.text"," Thank you! Your order will be delivered in next few weeks :-).");
 
