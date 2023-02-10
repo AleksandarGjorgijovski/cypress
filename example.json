@@ -1,0 +1,8 @@
+{
+  "name": "Aleksandar",
+  "email": "ace@mailinator.com",
+  "body": "Fixtures are a great way to mock data for responses to routes",
+  "products": ["Blackberry", "Nokia Edge"],
+  "item" : "Samsung Note 8",
+  "phoneModel" :"iphone X"
+}

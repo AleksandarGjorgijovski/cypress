@@ -1,5 +1,9 @@
 describe('template spec', () => {
-  it('verify products - positive test',() => {
+  beforeEach(() => {
+    cy.viewport(1024, 768)
+
+  });
+  it.only('verify products - positive test',() => {
     cy.visit('https://demo.nopcommerce.com/digital-downloads')
 
     cy.get("div.product-item").should('have.length',3)
