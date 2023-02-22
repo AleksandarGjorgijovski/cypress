@@ -37,11 +37,6 @@ it('adds two items', () => {
 
 it('can mark an item as completed', () => {
   // adds a few items
-  // cy.get('.new-todo')
-  // .type("Milk{enter}")
-  // .type("Bananas{enter}")
-  // .type("Meat{enter}")
-  // .type("Potatoes{enter}")
   // confirms the first item has the expected completed class
   cy.request("POST", "/todos",{title:"milk", completed:false})
   cy.request("POST", "/todos",{title:"bananas", completed:false})
@@ -76,31 +71,43 @@ it('can delete an item', () => {
   cy.contains(".todo-list li","Bananas").should("exist")
   cy.contains(".todo-list li","Meat").should("exist")
   cy.contains(".todo-list li","Potatoes").should("exist")
-
+  
   
 })
 
 it('can add many items', () => {
-  const N = 5
-  for (let k = 0; k < N; k += 1) {
-    // add an item
-    cy.get('.new-todo')
-  .type("Milk{enter}")
-    // probably want to have a reusable function to add an item!
+  var myStringArray = ["Milk","Banana","Meat","Potatoes"];
+  // add an item
+  for (var i = 0; i < myStringArray.length; i++) {
+    console.log(myStringArray[i]);
+    
+    cy.get('.new-todo').type(myStringArray[i] + '{enter}');        
+    
   }
   // check number of items
+  cy.get(".todo-list li").should("have.length",4)
+  
 })
 
 it('adds item with random text', () => {
-  // use a helper function with Math.random()
+  // Get the form field and type the random string
   // or Cypress._.random() to generate unique text label
+  const randomString = Cypress._.random(0, 1e6).toString(36).substr(0, 10);
+  
   // add such item
+  cy.get('.new-todo')
+  .type(randomString + "{enter}")
   // and make sure it is visible and does not have class "completed"
+  cy.contains(".todo-list li",randomString).should("not.have.class","completed")
+  cy.contains(".todo-list li",randomString).should("exist")
+  
+  
 })
 
-it('starts with zero items', () => {
+it.only('starts with zero items', () => {
   // check if the list is empty initially
   //   find the selector for the individual TODO items
+  cy.get('[data-layer="Content"]').should("have.length",0)
   //   in the list
   //   use cy.get(...) and it should have length of 0
   //   https://on.cypress.io/get
